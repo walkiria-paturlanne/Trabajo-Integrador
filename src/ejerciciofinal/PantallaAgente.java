@@ -14,6 +14,7 @@ import javax.swing.ImageIcon;
 public class PantallaAgente extends javax.swing.JFrame {
 
    private Agente agente;
+   public String metodo = "";
     
     public PantallaAgente() {
         initComponents();
@@ -181,8 +182,13 @@ public class PantallaAgente extends javax.swing.JFrame {
        agente.setDni(Integer.parseInt(txtDNI.getText()));
        agente.setSueldo(Float.parseFloat(txtSueldo.getText()));
        
+       if (metodo.equals("guardar")){
+           agente.guardar();           
+       }
+       if (metodo.equals("editar")){
+           agente.editar();
+       }
        
-       agente.guardar();
        this.dispose();
     }//GEN-LAST:event_btnAceptarActionPerformed
 

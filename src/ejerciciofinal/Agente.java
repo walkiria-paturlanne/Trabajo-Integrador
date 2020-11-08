@@ -93,21 +93,37 @@ public class Agente {
     
     }
     
+    /*UPDATE nombre_tabla
+      SET columna1 = valor1, columna2 = valor2
+      WHERE columna3 = valor3  */
+    
     public void editar()
     {
         ConexionBD base;
         base = new ConexionBD();
         
         String sql;
-         sql = "UPDATE Vendedores SET nombre = '"+ nombre + "', apellido = '"+ apellido + "', telefono = '" + telefono + "',"
-                + " direccion = '"+ direccion + "', dni = " + dni + ", sueldo = " + sueldo  ;
+        sql = "INSERT INTO Vendedores SET apellido='"+ apellido +"', telefono='"+ telefono +"', direccion='"+ direccion +"', dni='"+ dni +"', sueldo='"+ sueldo +"' WHERE nombre='"+ nombre +"'";
                
         
         base.ejecutarComando(sql);
         
     
     }
+    /*DELETE FROM nombre_tabla
+      WHERE nombre_columna = valor */
+    public void eliminar()
+    {
+        ConexionBD base;
+        base = new ConexionBD();
+        
+        String sql;
+        sql = "DELETE FROM Vendedores WHERE nombre='"+ nombre +"'";
+               
+        
+        base.ejecutarComando(sql);
+        
     
-    
+    }
     
 } //final de clase

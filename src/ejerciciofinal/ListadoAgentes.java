@@ -8,11 +8,12 @@ import javax.swing.table.DefaultTableModel;
 public class ListadoAgentes extends javax.swing.JFrame {
 
     DefaultTableModel modelo_datos;
+    private Agente agente;
     PantallaAgente pAgente = new PantallaAgente();
     public ListadoAgentes() {
         initComponents();
         //Desactiva el btnEditar
-        //btnEditar.setEnabled(false);
+        btnEditar.setEnabled(false);
         this.setLocationRelativeTo(null);
         setIconImage(new ImageIcon(getClass().getResource("/ejerciciofinal/usuarioGrupo.png")).getImage());
         
@@ -90,6 +91,11 @@ public class ListadoAgentes extends javax.swing.JFrame {
         });
 
         btnEliminar.setText("Eliminar");
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -127,6 +133,7 @@ public class ListadoAgentes extends javax.swing.JFrame {
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
        PantallaAgente pantallaagente;
        pantallaagente = new PantallaAgente();
+       pAgente.metodo = "guardar";
        pantallaagente.setVisible(true);
     }//GEN-LAST:event_btnAgregarActionPerformed
 
@@ -138,8 +145,17 @@ public class ListadoAgentes extends javax.swing.JFrame {
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         // TODO add your handling code here:
+        pAgente.metodo = "editar";
         pAgente.setVisible(true);
     }//GEN-LAST:event_btnEditarActionPerformed
+
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        // TODO add your handling code here:
+        int fila = this.TablaAgentes.getSelectedRow();
+        int columna=1;
+        agente.setNombre(String.valueOf(this.TablaAgentes.getValueAt(fila, columna++)));
+        agente.eliminar();
+    }//GEN-LAST:event_btnEliminarActionPerformed
 
     /**
      * @param args the command line arguments
