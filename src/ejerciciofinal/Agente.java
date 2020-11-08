@@ -103,7 +103,7 @@ public class Agente {
         base = new ConexionBD();
         
         String sql;
-        sql = "INSERT INTO Vendedores SET apellido='"+ apellido +"', telefono='"+ telefono +"', direccion='"+ direccion +"', dni='"+ dni +"', sueldo='"+ sueldo +"' WHERE nombre='"+ nombre +"'";
+        sql = "UPDATE Vendedores SET apellido='"+ apellido +"', telefono='"+ telefono +"', direccion='"+ direccion +"', dni='"+ dni +"', sueldo='"+ sueldo +"' WHERE nombre='"+ nombre +"'";
                
         
         base.ejecutarComando(sql);
