@@ -8,9 +8,11 @@ import javax.swing.table.DefaultTableModel;
 public class ListadoAgentes extends javax.swing.JFrame {
 
     DefaultTableModel modelo_datos;
-    
+    PantallaAgente pAgente = new PantallaAgente();
     public ListadoAgentes() {
         initComponents();
+        //Desactiva el btnEditar
+        //btnEditar.setEnabled(false);
         this.setLocationRelativeTo(null);
         setIconImage(new ImageIcon(getClass().getResource("/ejerciciofinal/usuarioGrupo.png")).getImage());
         
@@ -23,6 +25,17 @@ public class ListadoAgentes extends javax.swing.JFrame {
         modelo_datos = ConexionBD.cargarDatosTabla(modelo_datos, "Select legajo, nombre, apellido from vendedores");
         
         TablaAgentes.setModel(modelo_datos);
+    }
+    
+    public void llenarCampos(){         
+        int fila = this.TablaAgentes.getSelectedRow();
+        int columna=0;
+        pAgente.txtNombre.setText(String.valueOf(this.TablaAgentes.getValueAt(fila, columna++)));
+        pAgente.txtApellido.setText(String.valueOf(this.TablaAgentes.getValueAt(fila, columna++)));
+        pAgente.txtDomicilio.setText(String.valueOf(this.TablaAgentes.getValueAt(fila, columna++)));
+        pAgente.txtTelefono.setText(String.valueOf(this.TablaAgentes.getValueAt(fila, columna++)));
+        pAgente.txtDNI.setText(String.valueOf(this.TablaAgentes.getValueAt(fila, columna++)));
+        pAgente.txtSueldo.setText(String.valueOf(this.TablaAgentes.getValueAt(fila, columna++)));
     }
 
     /**
@@ -55,6 +68,11 @@ public class ListadoAgentes extends javax.swing.JFrame {
             }
         ));
         TablaAgentes.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        TablaAgentes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                TablaAgentesMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(TablaAgentes);
 
         btnAgregar.setText("Agregar");
@@ -112,10 +130,16 @@ public class ListadoAgentes extends javax.swing.JFrame {
        pantallaagente.setVisible(true);
     }//GEN-LAST:event_btnAgregarActionPerformed
 
+    private void TablaAgentesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TablaAgentesMouseClicked
+        // TODO add your handling code here:
+        llenarCampos();
+        btnEditar.setEnabled(true);
+    }//GEN-LAST:event_TablaAgentesMouseClicked
+
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
-       PantallaAgente pantallaagente;
-       pantallaagente = new PantallaAgente();
-       pantallaagente.setVisible(true);    }//GEN-LAST:event_btnEditarActionPerformed
+        // TODO add your handling code here:
+        pAgente.setVisible(true);
+    }//GEN-LAST:event_btnEditarActionPerformed
 
     /**
      * @param args the command line arguments

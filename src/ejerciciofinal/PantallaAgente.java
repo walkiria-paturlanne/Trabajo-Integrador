@@ -235,11 +235,11 @@ public class PantallaAgente extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JTextField txtApellido;
-    private javax.swing.JTextField txtDNI;
-    private javax.swing.JTextField txtDomicilio;
-    private javax.swing.JTextField txtNombre;
-    private javax.swing.JTextField txtSueldo;
-    private javax.swing.JTextField txtTelefono;
+    public javax.swing.JTextField txtApellido;
+    public javax.swing.JTextField txtDNI;
+    public javax.swing.JTextField txtDomicilio;
+    public javax.swing.JTextField txtNombre;
+    public javax.swing.JTextField txtSueldo;
+    public javax.swing.JTextField txtTelefono;
     // End of variables declaration//GEN-END:variables
 }
