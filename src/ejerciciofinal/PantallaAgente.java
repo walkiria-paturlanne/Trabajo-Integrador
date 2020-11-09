@@ -6,6 +6,7 @@
 package ejerciciofinal;
 
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -14,13 +15,22 @@ import javax.swing.ImageIcon;
 public class PantallaAgente extends javax.swing.JFrame {
 
    private Agente agente;
-   public String metodo = "";
+   public boolean estado = false;
     
     public PantallaAgente() {
         initComponents();
         agente = new Agente();
         this.setLocationRelativeTo(null);
         setIconImage(new ImageIcon(getClass().getResource("/ejerciciofinal/usuario.png")).getImage());
+    }
+    
+    public boolean metodo(char estadoParametro){
+        if (estadoParametro == 'g'){
+            this.estado = true;
+        } else {
+            this.estado = false;
+        } 
+        return this.estado;
     }
 
     /**
@@ -175,21 +185,25 @@ public class PantallaAgente extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
+ 
+       if(estado){
        agente.setNombre(txtNombre.getText());
        agente.setApellido(txtApellido.getText());
-       agente.setDireccion(txtDomicilio.getText());
-       agente.setTelefono(txtTelefono.getText());
        agente.setDni(Integer.parseInt(txtDNI.getText()));
+       agente.setDireccion(txtDomicilio.getText());
+       agente.setTelefono(txtTelefono.getText());       
        agente.setSueldo(Float.parseFloat(txtSueldo.getText()));
-       
-       if (metodo.equals("guardar")){
-           agente.guardar();           
-       }
-       if (metodo.equals("editar")){
-           agente.editar();
-       }
-       
+       agente.guardar();
        this.dispose();
+       JOptionPane.showMessageDialog(this, "Guardado Correctamente");
+       }
+       if(estado == false){
+           agente.setNombre(txtNombre.getText());
+           agente.setApellido(txtApellido.getText());
+           agente.editar();
+           this.dispose();
+           JOptionPane.showMessageDialog(this, "Editado Correctamente");
+       }
     }//GEN-LAST:event_btnAceptarActionPerformed
 
     private void txtNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreActionPerformed

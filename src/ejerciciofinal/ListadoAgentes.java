@@ -2,41 +2,54 @@
 package ejerciciofinal;
 
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 
 public class ListadoAgentes extends javax.swing.JFrame {
 
-    DefaultTableModel modelo_datos;
-    private Agente agente;
+    DefaultTableModel modelo_datos = new DefaultTableModel();;
+    private Agente agente = new Agente();
     PantallaAgente pAgente = new PantallaAgente();
+    String nombreReferencia = "";
+    
     public ListadoAgentes() {
         initComponents();
         //Desactiva el btnEditar
         btnEditar.setEnabled(false);
         this.setLocationRelativeTo(null);
         setIconImage(new ImageIcon(getClass().getResource("/ejerciciofinal/usuarioGrupo.png")).getImage());
-        
-        modelo_datos = new DefaultTableModel();
-        
-        modelo_datos.addColumn("Legajo");
-        modelo_datos.addColumn("Apellido");
-        modelo_datos.addColumn("Nombre");
-        
-        modelo_datos = ConexionBD.cargarDatosTabla(modelo_datos, "Select legajo, nombre, apellido from vendedores");
-        
+        this.listarTodos();
+    }
+    
+    public void listarTodos(){
+        this.modelo_datos.addColumn("Legajo");
+        this.modelo_datos.addColumn("Nombre");
+        this.modelo_datos.addColumn("Apellido");        
+        this.modelo_datos = ConexionBD.cargarDatosTabla(modelo_datos, "Select legajo, nombre, apellido from vendedores");
         TablaAgentes.setModel(modelo_datos);
     }
     
     public void llenarCampos(){         
         int fila = this.TablaAgentes.getSelectedRow();
-        int columna=0;
+        int columna=1;
         pAgente.txtNombre.setText(String.valueOf(this.TablaAgentes.getValueAt(fila, columna++)));
-        pAgente.txtApellido.setText(String.valueOf(this.TablaAgentes.getValueAt(fila, columna++)));
+        pAgente.txtApellido.setText(String.valueOf(this.TablaAgentes.getValueAt(fila, columna)));
+        /*pAgente.txtDNI.setText(String.valueOf(this.TablaAgentes.getValueAt(fila, columna++)));
         pAgente.txtDomicilio.setText(String.valueOf(this.TablaAgentes.getValueAt(fila, columna++)));
         pAgente.txtTelefono.setText(String.valueOf(this.TablaAgentes.getValueAt(fila, columna++)));
-        pAgente.txtDNI.setText(String.valueOf(this.TablaAgentes.getValueAt(fila, columna++)));
-        pAgente.txtSueldo.setText(String.valueOf(this.TablaAgentes.getValueAt(fila, columna++)));
+        pAgente.txtSueldo.setText(String.valueOf(this.TablaAgentes.getValueAt(fila, columna)));*/
+        
+        this.nombreReferencia = String.valueOf(this.TablaAgentes.getValueAt(fila, 1));
+    }
+    
+    public void limpiarCampos(){
+        pAgente.txtNombre.setText("");
+        pAgente.txtApellido.setText("");
+        pAgente.txtDNI.setText("");
+        pAgente.txtDomicilio.setText("");
+        pAgente.txtTelefono.setText("");
+        pAgente.txtSueldo.setText("");
     }
 
     /**
@@ -131,10 +144,10 @@ public class ListadoAgentes extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
-       PantallaAgente pantallaagente;
-       pantallaagente = new PantallaAgente();
-       pAgente.metodo = "guardar";
-       pantallaagente.setVisible(true);
+
+       pAgente.metodo('g');
+       this.limpiarCampos();
+       pAgente.setVisible(true);
     }//GEN-LAST:event_btnAgregarActionPerformed
 
     private void TablaAgentesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TablaAgentesMouseClicked
@@ -145,16 +158,19 @@ public class ListadoAgentes extends javax.swing.JFrame {
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         // TODO add your handling code here:
-        pAgente.metodo = "editar";
+        pAgente.metodo('e');
         pAgente.setVisible(true);
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         // TODO add your handling code here:
-        int fila = this.TablaAgentes.getSelectedRow();
-        int columna=1;
-        agente.setNombre(String.valueOf(this.TablaAgentes.getValueAt(fila, columna++)));
-        agente.eliminar();
+        if (this.nombreReferencia.length() > 0){
+            this.agente.eliminar(this.nombreReferencia);
+            JOptionPane.showMessageDialog(this, "Eliminado Correctamente");            
+        } else {
+            JOptionPane.showMessageDialog(this, "No Selecciono ninguno");
+        }
+        
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     /**

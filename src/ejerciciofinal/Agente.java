@@ -112,13 +112,13 @@ public class Agente {
     }
     /*DELETE FROM nombre_tabla
       WHERE nombre_columna = valor */
-    public void eliminar()
+    public void eliminar(String referencia)
     {
         ConexionBD base;
         base = new ConexionBD();
         
         String sql;
-        sql = "DELETE FROM Vendedores WHERE nombre='"+ nombre +"'";
+        sql = "DELETE FROM Vendedores WHERE nombre='"+referencia+"'";
                
         
         base.ejecutarComando(sql);
