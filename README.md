@@ -1,4 +1,4 @@
-#Trabajo Integrador 
+# Trabajo Integrador 
 
 Proyecto de integración de los conocimientos adquiridos durante el curso "Fundamentos de la Programación y Bases de datos".
 Para este trabajo se utilizo Netbeans como IDE.
